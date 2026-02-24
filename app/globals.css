@@ -1,26 +1,378 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Tailwind v4 theme tokens ─────────────────────────────── */
+@theme {
+  /* Cyberpunk palette */
+  --color-cyber-pink:   #ff006e;
+  --color-cyber-blue:   #00f5ff;
+  --color-cyber-purple: #8338ec;
+  --color-cyber-green:  #39ff14;
+
+  /* Aurora palette */
+  --color-aurora-purple: #a855f7;
+  --color-aurora-violet: #7c3aed;
+  --color-aurora-cyan:   #06b6d4;
+  --color-aurora-teal:   #14b8a6;
+  --color-aurora-pink:   #ec4899;
+
+  /* Space backgrounds */
+  --color-space-black: #030712;
+  --color-space-dark:  #080818;
+  --color-space-gray:  #0f0f23;
+  --color-space-mid:   #1a1a2e;
+
+  /* Accent */
+  --color-neon-gold: #ffd60a;
+
+  /* Animations */
+  --animate-aurora:       aurora 14s ease infinite;
+  --animate-glow-pulse:   glow-pulse 2.5s ease-in-out infinite;
+  --animate-float:        float 6s ease-in-out infinite;
+  --animate-cursor-blink: cursor-blink 1s step-end infinite;
+  --animate-shimmer:      shimmer 2s linear infinite;
+  --animate-spin-slow:    spin-slow 20s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Keyframes ────────────────────────────────────────────── */
+@keyframes aurora {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; filter: brightness(1); }
+  50%       { opacity: 0.85; filter: brightness(1.3); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ─── Base ─────────────────────────────────────────────────── */
+:root { color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed #0f0f23;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #030712;
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Webkit scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0f0f23; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7c3aed, #06b6d4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a855f7, #00f5ff);
+}
+
+/* Selection */
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #ffffff;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+/* ─── Utility layer ─────────────────────────────────────────── */
+@layer utilities {
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.18);
+  }
+
+  .glass-strong {
+    background: rgba(12, 12, 35, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+  }
+
+  /* Neon text */
+  .neon-purple {
+    color: #a855f7;
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 24px rgba(168, 85, 247, 0.3);
+  }
+  .neon-cyan {
+    color: #00f5ff;
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.7), 0 0 24px rgba(0, 245, 255, 0.3);
+  }
+  .neon-pink {
+    color: #ff006e;
+    text-shadow: 0 0 8px rgba(255, 0, 110, 0.7), 0 0 24px rgba(255, 0, 110, 0.3);
+  }
+  .neon-gold {
+    color: #ffd60a;
+    text-shadow: 0 0 8px rgba(255, 214, 10, 0.7), 0 0 24px rgba(255, 214, 10, 0.3);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #a855f7 0%, #00f5ff 50%, #ff006e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-cool {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 40%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #ff006e 0%, #a855f7 50%, #ffd60a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer text */
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #a855f7 0%, #00f5ff 25%, #a855f7 50%, #00f5ff 75%, #a855f7 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Neon borders */
+  .neon-border {
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.15), inset 0 0 12px rgba(168, 85, 247, 0.05);
+  }
+  .neon-border-cyan {
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.15), inset 0 0 12px rgba(6, 182, 212, 0.05);
+  }
+  .neon-border-pink {
+    border: 1px solid rgba(255, 0, 110, 0.4);
+    box-shadow: 0 0 12px rgba(255, 0, 110, 0.15), inset 0 0 12px rgba(255, 0, 110, 0.05);
+  }
+
+  /* Cyber grid background */
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Aurora animated background */
+  .aurora-bg {
+    background: linear-gradient(
+      -45deg,
+      #030712, #0d0028, #00141e, #0a0028, #030712
+    );
+    background-size: 400% 400%;
+    animation: aurora 14s ease infinite;
+  }
+
+  /* Section padding — also dims the page so neural network shows through subtly */
+  .section-pad {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background: rgba(3, 7, 18, 0.55);
+  }
+
+  @media (min-width: 768px) {
+    .section-pad { padding-left: 2rem; padding-right: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
+  }
+
+  /* Scan line overlay */
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Glow button */
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .btn-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #a855f7, #00f5ff, #ff006e, #a855f7);
+    background-size: 300% 300%;
+    border-radius: inherit;
+    animation: aurora 4s ease infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  .btn-glow:hover::before { opacity: 1; }
+
+  /* Tag chip */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.03em;
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    color: #a855f7;
+  }
+
+  .chip-cyan {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.25);
+    color: #06b6d4;
+  }
+
+  .chip-pink {
+    background: rgba(255, 0, 110, 0.1);
+    border-color: rgba(255, 0, 110, 0.25);
+    color: #ff006e;
+  }
+
+  .chip-gold {
+    background: rgba(255, 214, 10, 0.1);
+    border-color: rgba(255, 214, 10, 0.25);
+    color: #ffd60a;
+  }
+
+  .chip-teal {
+    background: rgba(20, 184, 166, 0.1);
+    border-color: rgba(20, 184, 166, 0.25);
+    color: #14b8a6;
+  }
+
+  /* Blog article prose styles */
+  .blog-prose {
+    color: #94a3b8;
+    line-height: 1.85;
+    font-size: 1rem;
+  }
+  .blog-prose p {
+    margin-bottom: 1.5rem;
+  }
+  .blog-prose h2 {
+    font-family: var(--font-space-grotesk);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #e2e8f0;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .blog-prose h3 {
+    font-family: var(--font-space-grotesk);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .blog-prose strong {
+    color: #e2e8f0;
+    font-weight: 600;
+  }
+  .blog-prose a {
+    color: #a855f7;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .blog-prose a:hover { color: #00f5ff; }
+  .blog-prose ul, .blog-prose ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    space-y: 0.5rem;
+  }
+  .blog-prose li { margin-bottom: 0.5rem; }
+  .blog-prose code {
+    font-family: var(--font-jetbrains);
+    font-size: 0.85em;
+    color: #06b6d4;
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+  }
+  .blog-prose blockquote {
+    border-left: 3px solid #7c3aed;
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    color: #64748b;
+    font-style: italic;
+  }
 }
