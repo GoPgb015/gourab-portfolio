@@ -27,9 +27,9 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Gourab Chatterjee | AI & Analytics Professional",
+  title: "Gourab Chatterjee | AI Practitioner",
   description:
-    "AI and analytics professional with experience spanning enterprise analytics, banking, ESG research, and institutional AI operations. Published researcher with conference exposure across IIMs and IIT Kharagpur.",
+    "Building AI systems that transform data into impact.",
   keywords: [
     "AI", "Analytics", "Machine Learning", "LLMs", "NLP", "Power BI",
     "Python", "Research", "Gourab Chatterjee"
