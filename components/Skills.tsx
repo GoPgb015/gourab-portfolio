@@ -3,6 +3,9 @@
 import { motion } from 'framer-motion';
 import { skills } from '@/data';
 
+// Flatten skills from categories to a flat array
+const allSkills = Object.values(skills).flatMap(category => category.items);
+
 export default function Skills() {
   return (
     <section className="py-32 bg-charcoal">
@@ -17,9 +20,9 @@ export default function Skills() {
         </motion.h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {skills.map((skill, index) => (
+          {allSkills.map((skill, index) => (
             <motion.div
-              key={index}
+              key={`${skill}-${index}`}
               className="bg-charcoal-light p-4 rounded gold-border text-center"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -27,7 +30,7 @@ export default function Skills() {
               transition={{ duration: 0.3, delay: index * 0.05 }}
               whileHover={{ scale: 1.05, borderColor: '#d4af37' }}
             >
-              <span className="text-text-primary text-sm font-semibold">{skill.name}</span>
+              <span className="text-text-primary text-sm font-semibold">{skill}</span>
             </motion.div>
           ))}
         </div>
