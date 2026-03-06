@@ -62,8 +62,8 @@ export interface SkillCategory {
 
 export const heroSlides: HeroSlide[] = [
   {
-    title: "The AI Practitioner",
-    subtitle: "Currently building AI systems at Jaipuria Institute of Management",
+    title: "The AI Artist",
+    subtitle: "Crafting AI systems at Jaipuria Institute of Management. Where data meets intuition.",
     backgroundImage: "/images/hero-ai.jpg",
     cta: "View Episodes",
   },
@@ -97,13 +97,13 @@ export const experiences: Experience[] = [
     season: 4,
     episode: 1,
     thumbnail: "/images/exp-jaipuria.jpg",
-    description: "The newest power player walks into India's first AI-native B-school and rewrites the playbook. Think less 'assistant manager,' more 'the guy who actually makes AI happen across an entire institution.'",
+    description: "India's first AI-native B-school needed someone to connect the dots between AI ambition and daily operations. Automation, vendor coordination, student workshops, B2B pitches — the unsexy work that makes the machine run.",
     bullets: [
-      "Architects AI-powered simulations inspired by Harvard Business School case methods — because why train managers the old way when you can build the future?",
-      "Runs the AI department's operations like a war room: automation pipelines, vendor deals, platform licensing — nothing moves without his sign-off.",
-      "Bridges the gap between five departments that never talked to each other. AI, academics, marketing, ops, finance — now they're all on the same page.",
-      "Turns B-school students into AI practitioners through hands-on workshops that make textbooks look obsolete.",
-      "Drives B2B sales for AI-enabled solutions — because the best tech means nothing if you can't sell the vision.",
+      "Designs AI-powered simulation environments modeled on HBS case methods — bridging HR, psychology, and decision-making into one training framework.",
+      "Manages the operational backbone: automation pipelines, vendor licensing, platform coordination, and financial workflows across departments.",
+      "Acts as the connective tissue between AI, academics, marketing, operations, and finance — the teams that need to talk but usually don't.",
+      "Runs hands-on workshops for students on AI tools, simulations, and applied analytics. Less theory, more doing.",
+      "Handles B2B sales and business development for AI-enabled solutions with academic and corporate stakeholders.",
     ],
     tags: ["AI Strategy", "Automation", "B2B", "EdTech", "Leadership"],
   },
